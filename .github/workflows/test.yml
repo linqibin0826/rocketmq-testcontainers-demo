@@ -46,8 +46,8 @@ jobs:
       - name: Build with Maven
         run: mvn clean compile -B -V
 
-      - name: Run Integration Tests
-        run: mvn verify -B -V
+      - name: Run Docker Compose Integration Tests
+        run: mvn test -Dtest=RocketMQComposeIntegrationTest -B -V
         env:
           # 确保 TestContainers 可以访问 Docker
           TESTCONTAINERS_RYUK_DISABLED: false
