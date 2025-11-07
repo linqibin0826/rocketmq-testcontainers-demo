@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # RocketMQ NameServer
+  nameserver:
+    image: apache/rocketmq:5.3.1
+    ports:
+      - "9876:9876"
+    command: sh mqnamesrv
+    networks:
+      - rocketmq
+    healthcheck:
+      test: ["CMD", "sh", "mqadmin", "clusterList", "-n", "localhost:9876"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  # RocketMQ Broker
+  broker:
+    image: apache/rocketmq:5.3.1
+    ports:
+      - "10909:10909"
+      - "10911:10911"
+      - "10912:10912"
+    environment:
+      - NAMESRV_ADDR=nameserver:9876
+    depends_on:
+      nameserver:
+        condition: service_healthy
+    command:
+      - sh
+      - -c
+      - |
+        cat > /tmp/broker.conf <<EOF
+        brokerClusterName=DefaultCluster
+        brokerName=broker-a
+        brokerId=0
+        deleteWhen=04
+        fileReservedTime=48
+        brokerRole=ASYNC_MASTER
+        flushDiskType=ASYNC_FLUSH
+        listenPort=10911
+        brokerIP1=127.0.0.1
+        autoCreateTopicEnable=true
+        autoCreateSubscriptionGroup=true
+        EOF
+        cat /tmp/broker.conf
+        sh mqbroker -n nameserver:9876 -c /tmp/broker.conf
+    networks:
+      - rocketmq
+    healthcheck:
+      test: ["CMD", "sh", "mqadmin", "clusterList", "-n", "nameserver:9876"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+networks:
+  rocketmq:
+    driver: bridge
