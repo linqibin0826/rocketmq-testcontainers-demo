@@ -283,7 +283,10 @@ BUILD SUCCESS
 5. ✅ **性能测试**: 100条消息 136ms，吞吐量 735条/秒
 6. ✅ **Mac 本地环境**: 所有测试通过
 
-📖 **详细文档**: 查看 [SUCCESS_SUMMARY.md](./SUCCESS_SUMMARY.md) 了解完整实现细节
+📖 **详细文档**:
+- [PROJECT_SUMMARY.md](./PROJECT_SUMMARY.md) - 📊 项目总结（推荐阅读）
+- [SUCCESS_SUMMARY.md](./SUCCESS_SUMMARY.md) - 🔧 技术实现详解
+- [IMPLEMENTATION_SUMMARY.md](./IMPLEMENTATION_SUMMARY.md) - 📝 实现过程回顾
 
 ### 📝 深度分析发现
 
