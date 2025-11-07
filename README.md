@@ -46,7 +46,9 @@ mvn test -Dtest=RocketMQComposeIntegrationTest
 ```
 rocketmq-testcontainers-demo/
 ├── pom.xml
+├── docker-compose-rocketmq.yml              # Docker Compose 配置
 ├── README.md
+├── SUCCESS_SUMMARY.md                       # 详细技术文档
 └── src/
     ├── main/
     │   ├── java/com/example/rocketmq/
@@ -54,8 +56,8 @@ rocketmq-testcontainers-demo/
     │   └── resources/
     │       └── application.yml
     └── test/java/com/example/rocketmq/
-        ├── RocketMQContainerSupport.java    # 容器支持类
-        └── RocketMQIntegrationTest.java     # 集成测试
+        ├── RocketMQComposeIntegrationTest.java  # 集成测试 (8个测试用例)
+        └── TestMessageConsumer.java             # 消息消费者
 ```
 
 ## 🔑 关键配置

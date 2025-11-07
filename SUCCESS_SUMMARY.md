@@ -126,6 +126,15 @@ Docker Compose 配置文件，定义 NameServer 和 Broker 服务。
 - `CountDownLatch` 用于测试同步
 - 监听 `TEST_TOPIC_COMPOSE` 主题
 
+### 4. .github/workflows/test.yml
+GitHub Actions CI/CD 配置，自动运行集成测试。
+
+**特性**:
+- JDK 25 环境
+- Docker 支持
+- 只运行成功的测试
+- 自动发布测试报告
+
 ---
 
 ## 🚀 使用方法
@@ -207,23 +216,9 @@ static void configureRocketMQ(DynamicPropertyRegistry registry) {
 
 ---
 
-## 🔄 与之前版本对比
-
-| 方面 | V1 (动态端口) | V2 (固定端口) | Docker Compose (当前) |
-|------|--------------|--------------|----------------------|
-| 容器启动 | ✅ | ✅ | ✅ |
-| Broker 注册 | ⚠️ | ✅ | ✅ |
-| 消息发送 | ❌ | ❌ | ✅ |
-| 消息消费 | ❌ | ❌ | ✅ |
-| 配置复杂度 | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ |
-| 可靠性 | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
-| 推荐程度 | ❌ | ⚠️ | ✅ |
-
----
-
 ## 🏗️ 架构优势
 
-### Docker Compose 方案的优势
+### Docker Compose + TestContainers 方案的优势
 
 1. **配置清晰**: YAML 文件定义所有服务和依赖关系
 2. **可重用性**: 可以独立运行，也可以通过 TestContainers 集成
